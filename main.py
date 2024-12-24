@@ -37,8 +37,6 @@ def findPrice(link):
 
     try:
         price = browser.find_element(By.XPATH, saleXPath).text
-    # //*[@id="pdp-ugc-3"]/div[1]/div/div[2]/div[2]/div[2]/div/div[3]/div/div/h3/span/span/span[2]
-
     except:
         price = browser.find_element(By.XPATH, nonSaleXPath).text
     browser.close()

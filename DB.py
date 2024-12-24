@@ -4,7 +4,6 @@ from datetime import date
 import datetime
 
 class DB:
-    global connection
     def __init__(self):
         self.connection = info.getConnection()
         self.cursor = self.connection.cursor()
