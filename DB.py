@@ -12,9 +12,25 @@ class DB:
         self.cursor.execute("SELECT * from purses;")
         record = self.cursor.fetchall()
         return record
+    
+    def getPurseWithLink(self, link):
+        self.cursor.execute(f"SELECT * from purses WHERE link=\'{link}\';")
+        record = self.cursor.fetchall()
+        return record
+    
+    def getLatestPurseID(self):
+        statement = f"SELECT * FROM purses ORDER BY id DESC LIMIT 1;"
+        self.cursor.execute(statement)
+        record = self.cursor.fetchall()
+        return record
+    
+    def getPrices(self):
+        self.cursor.execute(f"SELECT * from prices;")
+        record = self.cursor.fetchall()
+        return record
 
 
-    def getPrices(self, id):
+    def getPricesWithID(self, id):
         self.cursor.execute(f"SELECT * from prices WHERE id={id};")
         record = self.cursor.fetchall()
         return record
@@ -29,6 +45,11 @@ class DB:
     def addPrice(self, id, p):
         d = date.today()
         statement = f"INSERT INTO prices (id, price, date) VALUES ({id},{p},DATE(\'{d}\'));" 
+        self.cursor.execute(statement)
+        self.connection.commit()
+
+    def addPurse(self, id, name, link):
+        statement = f"INSERT INTO purses (id, name, link) VALUES ({id},\'{name}\',\'{link}\');" 
         self.cursor.execute(statement)
         self.connection.commit()
         
